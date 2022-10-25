@@ -22,7 +22,7 @@ public class PinchDetection : MonoBehaviour
     public IReadOnlyCollection<Finger> OtherTouches { get { return otherTouches.AsReadOnly(); } }
 
     bool enablePinch;
-    float inputLeeway = 10;
+    [SerializeField]float inputLeeway = 10;
 
     float prevDist = 0;
     float dist = 0;
@@ -56,9 +56,14 @@ public class PinchDetection : MonoBehaviour
     private void OnDisable()
     {
         // Subscribe to the OnStartTouchEvent
-        inputManager.OnStartTouch += StartTouch;
-        inputManager.OnEndTouch += EndTouch;
-        inputManager.OnTouchMoved += TouchMoved;
+        inputManager.OnStartTouch -= StartTouch;
+        inputManager.OnEndTouch -= EndTouch;
+        inputManager.OnTouchMoved -= TouchMoved;
+    }
+
+    public void SetLeeway(float f)
+    {
+        inputLeeway = f;
     }
 
     private void StartTouch(Finger finger, float time)
