@@ -82,6 +82,7 @@ public class PinchDetection : MonoBehaviour
     private void TouchMoved(Finger finger, float time)
     {
         if (!enablePinch) return;
+        if (secondTouch == null) return; 
         dist = Vector2.Distance(firstTouch.screenPosition, secondTouch.screenPosition);
         if (Mathf.Abs(dist - prevDist) > inputLeeway)
         {
